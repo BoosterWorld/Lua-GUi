@@ -1,0 +1,61 @@
+-- Create a function to generate a GUI with a logo that can be opened and closed.
+function createCoolGUI()
+    local gui = Instance.new("ScreenGui")
+    gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.2, 0, 0.1, 0)
+    frame.Position = UDim2.new(0.4, 0, 0.45, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    frame.BorderSizePixel = 2
+    frame.Visible = false
+    frame.Parent = gui
+
+    local logo = Instance.new("ImageLabel")
+    logo.Size = UDim2.new(0.5, 0, 0.5, 0)
+    logo.Position = UDim2.new(0.25, 0, 0.25, 0)
+    logo.Image = "http://www.example.com/logo.png" -- Replace with actual logo URL
+    logo.Parent = frame
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(0.5, 0, 0.1, 0)
+    textLabel.Position = UDim2.new(0, 0, 0, 0)
+    textLabel.Text = "Booster"
+    textLabel.TextSize = 24
+    textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    textLabel.Parent = frame
+
+    local selected = false
+
+    -- Function to handle the selection/unselection of the GUI
+    local function toggleSelection()
+        if selected then
+            frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            selected = false
+        else
+            frame.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+            selected = true
+        end
+    end
+
+    -- Connect the toggleSelection function to the frame's mouse click event
+    frame.MouseButton1Click:Connect(toggleSelection)
+
+    -- Function to open or close the GUI
+    function openCloseGUI()
+        if frame.Visible then
+            frame.Visible = false
+        else
+            frame.Visible = true
+        end
+    end
+
+    return openCloseGUI
+end
+
+-- Example usage of the createCoolGUI function
+
+local openCloseFunction = createCoolGUI()
+
+-- To open or close the GUI, call the returned function
+openCloseFunction()
